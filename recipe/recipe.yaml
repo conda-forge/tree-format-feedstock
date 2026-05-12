@@ -1,0 +1,45 @@
+context:
+  name: tree-format
+  version: 0.1.2
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  sha256: a538523aa78ae7a4b10003b04f3e1b37708e0e089d99c9d3b9e1c71384c9a7f9
+
+build:
+  noarch: python
+  number: 0
+  script: ${{ PYTHON }} -m pip install . --no-deps -vv
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - pip
+    - setuptools
+  run:
+    - python >=${{ python_min }}
+
+tests:
+  - python:
+      imports:
+        - tree_format
+      python_version: ${{ python_min }}.*
+
+about:
+  homepage: https://github.com/jml/tree-format
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: Python library to generate nicely formatted trees, like the UNIX `tree` command.
+  description: |
+    Python library to generate nicely formatted trees, like the UNIX `tree`
+    command.
+  documentation: https://github.com/jml/tree-format
+  repository: https://github.com/jml/tree-format
+
+extra:
+  recipe-maintainers:
+    - knightdave
